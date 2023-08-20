@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form onsubmit="validateForm(e)">
+        <div>
+            <label>Name</label>
+            <input type="text" id="name" />
+        </div>
+        <div>
+            <label>Mobile Number</label>
+            <input type="text" id="mob" />
+        </div>
+        <div>
+            <label>Email</label>
+            <input type="text" id="mail" />
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+
+     let mob=document.getElementById('mob');
+     let mail =document.getElementById('mail');
+
+    function checkName(){
+        let name= document.getElementById('name').value;
+    //    let rgx=/^[a-zA-Z ]{2,30}$/;
+        if(name.length < 6){
+            alert("Username must be atleast 6 charactrs long, Please Try Again");
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    function validateForm(e){
+        e.preventDefault();
+        checkName(name);
+    }
+    </script>
+</body>
+
+</html>
