@@ -5,7 +5,7 @@ const nextbtn =document.getElementById('next');
 
 const audio=document.getElementById('audio');
 const progress=document.getElementById('progress');
-const progresscontainer=document.getElementById('progresscontainer');
+const progressContainer=document.getElementById('progresscontainer');
 const title=document.getElementById('title');
 const cover = document.getElementById('cover');
 const currTime = document.querySelector('#currTime');
@@ -73,14 +73,17 @@ function nextSong(){
     playSong();
 }
 
+// Update progress bar
 function updateProgress(e){
     const{duration,currentTime}=e.srcElement; //duration - get lenght of current video
     // currentTime -The currentTime property sets or returns the current position  of the audio/video playback
-    const progressPercent=(currentTime / duration)*100; //
+    const progressPercent=(currentTime / duration)*100; 
     progress.style.width=`${progressPercent}%`;
 }
 
+// Set progress bar
 function setProgress(e){
+    console.log("hello");
     const width=this.clientWidth; //The Element.clientWidth property is zero for inline elements and elements with no CSS;
     const clickX=e.offsetX; //The offsetX property returns the x-coordinate the mouse cursor, relative to the target element.
     const duration =audio.duration;
@@ -89,63 +92,126 @@ function setProgress(e){
 }
 
 //get duration & currentTime for Time of song
- function DurTime(e){
-    const {duration,currentTime}=e.srcElement;
-    var sec;
+//  function DurTime(e){
+//     const {duration,currentTime}=e.srcElement;
+//     var sec;
+// 	var sec_d;
+
+//     // define minutes currentTime
+//     let min =(currentTime==null)?0:Math.floor(currentTime/60);
+//     min=min<10?"0"+min:min;
+
+//     // define seconds currentTime
+//     function get_sec(x){
+//         if(Math.floor(x)>=60){
+//             for(var i=1;i<=60;i++){
+//                 if(Math.floor(x)>=(60*1) && Math.floor(x)<(60*(1+i))){
+//                     sec=Math.floor(x)-(60*1);
+//                     sec=sec<10?'0'+sec:sec;
+//                 }
+//             }
+//         }
+//         else{
+//             sec=Math.floor(x);
+//             sec=sec<10?'0'+sec:sec;
+//         }
+//     }
+
+//     get_sec(currentTime,sec);
+
+//     // change currentTime DOM
+//     currTime.innerHTML = min +':'+ sec;
+
+// 	// define minutes duration
+//     let min_d=(isNaN(duration)===true)?"0":Math.floor(duration/60);
+//     min_d=min_d<10?'0'+min_d:min_d;
+
+//     function get_sec_d(){
+//         if(Math.floor(x)>=60){
+//             for(i=1;i<=60;i++){
+//                 if(Math.floor(x>=(60*1))&& Math.floor(x)<(60*(1+i))){
+//                     sec_d=Math.floor(x)-(60*1);
+//                     sec_d=sec_d<10?'0'+sec_d:sec_d;
+//                 }
+//             }
+//         }
+//         else{
+//             sec_d=(isNaN(duration)===true)?'0':Math.floor(x);
+//             sec_d=sec_d<10?'0'+sec_d:sec_d;
+//         }
+//     }
+
+// 	// define seconds duration
+
+//         get_sec_d(duration);
+
+//     // change duration DOM
+
+//     durTime.innerHTML=min_d+':'+sec_d;
+//  };
+
+//get duration & currentTime for Time of song
+function DurTime (e) {
+	const {duration,currentTime} = e.srcElement;
+	var sec;
 	var sec_d;
 
-    // define minutes currentTime
-    let min =(currTime==null)?0:Math.floor(currTime/60);
-    min=min<10?"0"+min:min;
+	// define minutes currentTime
+	let min = (currentTime==null)? 0:
+	 Math.floor(currentTime/60);
+	 min = min <10 ? '0'+min:min;
 
-    // define seconds currentTime
-    function get_sec(x){
-        if(Math.floor(x)>=60){
-            for(var i=1;i<=60;i++){
-                if(Math.floor(x)>=(60*1) && Math.floor(x)<(60*(1+i))){
-                    sec=Math.floor(x)-(60*1);
-                    sec=sec<10?'0'+sec:sec;
-                }
-            }
-        }
-        else{
-            sec=Math.floor(x);
-            sec=sec<10?'0'+sec:sec;
-        }
-    }
+	// define seconds currentTime
+	function get_sec (x) {
+		if(Math.floor(x) >= 60){
+			
+			for (var i = 1; i<=60; i++){
+				if(Math.floor(x)>=(60*i) && Math.floor(x)<(60*(i+1))) {
+					sec = Math.floor(x) - (60*i);
+					sec = sec <10 ? '0'+sec:sec;
+				}
+			}
+		}else{
+		 	sec = Math.floor(x);
+		 	sec = sec <10 ? '0'+sec:sec;
+		 }
+	} 
 
-    get_sec(currTime,sec);
+	get_sec (currentTime,sec);
 
-    // change currentTime DOM
-    currTime.innerHTML = min +':'+ sec;
+	// change currentTime DOM
+	currTime.innerHTML = min +':'+ sec;
 
 	// define minutes duration
-    let min_d=(isNaN(duration)===true)?"0":Math.floor(duration/60);
-    min_d=min_d<10?'0'+min_d:min_d;
+	let min_d = (isNaN(duration) === true)? '0':
+		Math.floor(duration/60);
+	 min_d = min_d <10 ? '0'+min_d:min_d;
 
-    function get_sec_d(){
-        if(Math.floor(x)>=60){
-            for(i=1;i<=60;i++){
-                if(Math.floor(x>=(60*1))&& Math.floor(x)<(60*(1+i))){
-                    sec_d=Math.floor(x)-(60*1);
-                    sec_d=sec_d<10?'0'+sec_d:sec_d;
-                }
-            }
-        }
-        else{
-            sec_d=(isNaN(duration)===true)?'0':Math.floor(x);
-            sec_d=sec_d<10?'0'+sec_d:sec_d;
-        }
-    }
+
+	 function get_sec_d (x) {
+		if(Math.floor(x) >= 60){
+			
+			for (var i = 1; i<=60; i++){
+				if(Math.floor(x)>=(60*i) && Math.floor(x)<(60*(i+1))) {
+					sec_d = Math.floor(x) - (60*i);
+					sec_d = sec_d <10 ? '0'+sec_d:sec_d;
+				}
+			}
+		}else{
+		 	sec_d = (isNaN(duration) === true)? '0':
+		 	Math.floor(x);
+		 	sec_d = sec_d <10 ? '0'+sec_d:sec_d;
+		 }
+	} 
 
 	// define seconds duration
+	
+	get_sec_d (duration);
 
-        get_sec_d(duration);
-
-    // change duration DOM
-
-    durTime.innerHTML=min_d+':'+sec_d;
- };
+	// change duration DOM
+	durTime.innerHTML = min_d +':'+ sec_d;
+		
+};
 
  // Event listeners
 
@@ -168,7 +234,8 @@ function setProgress(e){
 audio.addEventListener('timeupdate', updateProgress);
 
 // Click on progress bar
-progresscontainer.addEventListener('click', setProgress);
+
+progressContainer.addEventListener('click', setProgress);
 
 // Song ends
 audio.addEventListener('ended', nextSong);
