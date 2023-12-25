@@ -69,11 +69,72 @@ function createbox(item){
     `;
 
     //add active effect
-    box.classList.add("active");
+    box.addEventListener('click',()=>{
+      setTextMessage(text);
+      speakText();
+
+      box.classList.add("active");
+      setTimeout(()=>box.classList.remove('active'),800);
+    });
     
+
 
     main.appendChild(box);
 }
 
 // Init speech synth
 const message = new SpeechSynthesisUtterance();
+
+// Store voices
+let voices=[];
+
+function getVoices(){
+  voices=speechSynthesis.getVoices();
+
+  voices.forEach(voice=>{
+    const option=document.createElement('option');
+    option.value=voice.name;
+    option.innerText=`${voice.name} ${voice.lang}`;
+    voiceSelect.appendChild(option);
+  });
+}
+
+// set text
+function setTextMessage(text){
+  message.text=text;
+}
+
+// Speak text
+function speakText(){
+  speechSynthesis.speak(message);
+}
+
+//set voice
+
+function setVoice(e){
+  message.voice=voices.find(voice=>voice.name ===e.target.value)
+}
+
+//voice changed
+speechSynthesis.addEventListener("voiceschanged",getVoices);
+
+//toggle text box
+toggleBtn.addEventListener('click',()=>
+document.getElementById("text-box").classList.toggle('show')
+);
+
+//close btn
+closeBtn.addEventListener('click',()=>
+document.getElementById("text-box").classList.remove('show')
+);
+
+//change voice
+voiceSelect.addEventListener('change',setVoice);
+
+//read text button
+readBtn.addEventListener('click',()=>{
+  setTextMessage(textarea.value);
+  speakText();
+});
+
+getVoices();
