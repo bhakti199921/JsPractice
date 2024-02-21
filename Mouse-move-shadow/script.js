@@ -10,7 +10,7 @@ function shadow(e){
     // console.log(height);
 
     const {offsetWidth:width,offsetHeight:height}=hero; // same as line 5 and 7
-    let {offsetX:x,offsetY:y}=e;
+    let {offsetX:x,offsetY:y}=e; //providing coordinate 
     // console.log(x,y);
     //   console.log(this,  e.target);
 
